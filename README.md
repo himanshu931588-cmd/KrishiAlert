@@ -1,5 +1,5 @@
 # KrishiAlert
-KishanSeva is a unified digital platform designed to eliminate post-harvest stubble burning across North India. By bridging the gap between high-tech satellite monitoring and on-ground resource accessibility, we provide farmers with a viable, profitable alternative to crop residue burning.
+KishanSeva is a unifie digital platform designed to eliminate post-harvest stubble burning across North India. By bridging the gap between high-tech satellite monitoring and on-ground resource accessibility, we provide farmers with a viable, profitable alternative to crop residue burning.
 🌾 The Challenge
 Every year, a critical 15-day harvest window forces farmers into a "burn or lose" dilemma. Expensive Crop Residue Management (CRM) machinery—like Happy Seeders and Balers—remains out of reach due to:
 
