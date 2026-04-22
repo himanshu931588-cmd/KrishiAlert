@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Bazaar - KishanSeva</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .labour-theme {
+            --brand-primary: #0ea5e9;
+            /* Tech Blue */
+            --brand-secondary: #00E676;
+            /* Green */
+        }
+
+        /* Grid specific to bazaar */
+        .bazaar-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .job-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            background: var(--bg-tertiary);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .job-location {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .job-details {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-item i {
+            color: var(--brand-primary);
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+
+        select.form-input {
+            appearance: none;
+        }
+    </style>
+</head>
+
+<body class="labour-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span style="color:#0ea5e9;">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item active">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search locations, skills, or available jobs...">
+                </div>
+                <div class="topbar-actions">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Gurpreet+Singh&background=0ea5e9&color=fff"
+                            alt="User" class="avatar" style="border-color:#0ea5e9;">
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="page-header" style="flex-direction: column; align-items:flex-start; gap: 8px;">
+                    <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                        <div>
+                            <h1 class="page-title"
+                                style="background: linear-gradient(to right, #0F172A, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                                Farm Labour Bazaar</h1>
+                            <p class="page-subtitle">Instantly connect with seasonal farm workers near your village.</p>
+                        </div>
+                        <button class="primary-btn" id="showFormBtn"
+                            style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+                            <i class="fa-solid fa-pen-to-square"></i> Post New Job
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bazaar-grid">
+                    <!-- Job Listings -->
+                    <div class="job-list" id="jobContainer">
+                        <div class="panel-header">
+                            <h2 class="panel-title"><i class="fa-solid fa-list" style="color:#0ea5e9;"></i> Active
+                                Openings in Sangrur</h2>
+                        </div>
+
+                        <!-- Initial Jobs populated by template -->
+                        <div class="job-card">
+                            <div class="job-header">
+                                <div>
+                                    <h3 class="job-title">Wheat Sowing Labour</h3>
+                                    <div class="job-location"><i class="fa-solid fa-location-dot"></i> Sangrur, 12 km
+                                        away</div>
+                                </div>
+                                <span class="badge warning">Urgent</span>
+                            </div>
+                            <div class="job-details">
+                                <div class="detail-item"><i class="fa-regular fa-calendar"></i> Starts Tomorrow</div>
+                                <div class="detail-item"><i class="fa-solid fa-users"></i> 4 Workers Needed</div>
+                                <div class="detail-item"><i class="fa-solid fa-money-bill-wave"></i> ₹500 / day</div>
+                            </div>
+                            <div class="job-footer">
+                                <span style="font-size:13px; color:var(--text-muted);">Posted 2 hrs ago by
+                                    Kuldeep</span>
+                                <button class="action-btn" style="background: #0ea5e9;">Apply Now</button>
+                            </div>
+                        </div>
+
+                        <div class="job-card">
+                            <div class="job-header">
+                                <div>
+                                    <h3 class="job-title">Residue Clearing & Baling</h3>
+                                    <div class="job-location"><i class="fa-solid fa-location-dot"></i> Patiala Border,
+                                        18 km away</div>
+                                </div>
+                                <span class="badge blue">2 Applied</span>
+                            </div>
+                            <div class="job-details">
+                                <div class="detail-item"><i class="fa-regular fa-calendar"></i> Starts Oct 28</div>
+                                <div class="detail-item"><i class="fa-solid fa-users"></i> 2 Workers Needed</div>
+                                <div class="detail-item"><i class="fa-solid fa-money-bill-wave"></i> ₹600 / day + Food
+                                </div>
+                            </div>
+                            <div class="job-footer">
+                                <span style="font-size:13px; color:var(--text-muted);">Posted 5 hrs ago by Singh
+                                    Farms</span>
+                                <button class="action-btn" style="background: #0ea5e9;">Apply Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Panel: Post Form & Available Workers -->
+                    <div class="bazaar-sidebar">
+
+                        <!-- Post Job Form (Hidden initially or embedded) -->
+                        <div class="panel glass-panel" id="postJobForm"
+                            style="margin-bottom: 24px; border-top: 4px solid #0ea5e9;">
+                            <h2 class="panel-title" style="margin-bottom: 16px;">Post a Labour Request</h2>
+
+                            <div class="form-group">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-input" id="jobTitle" placeholder="e.g. Paddy Harvesting">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Workers Needed</label>
+                                <input type="number" class="form-input" id="workersCount" placeholder="e.g. 5" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Daily Wage (₹)</label>
+                                <input type="number" class="form-input" id="jobWage" placeholder="e.g. 600">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Start Date</label>
+                                <select class="form-input" id="jobDate">
+                                    <option value="Tomorrow">Tomorrow</option>
+                                    <option value="Urgent (Today)">Urgent (Today)</option>
+                                    <option value="Next Week">Next Week</option>
+                                </select>
+                            </div>
+                            <button class="primary-btn" id="submitJobBtn"
+                                style="width:100%; justify-content:center; background:#0ea5e9;">Post Request</button>
+                        </div>
+
+                        <!-- Available Workers List -->
+                        <div class="panel">
+                            <h2 class="panel-title" style="margin-bottom: 16px;">Verified Labour Groups</h2>
+                            <div class="list-container">
+                                <div class="list-item">
+                                    <img src="https://ui-avatars.com/api/?name=Ramu+Group&background=334155&color=fff"
+                                        class="avatar" style="margin-right:12px; border:none; width:36px; height:36px;">
+                                    <div class="item-details">
+                                        <h4>Ramu & Team (8)</h4>
+                                        <p>Available • Specializes in sowing</p>
+                                    </div>
+                                    <button class="outline-btn small"
+                                        style="color:#0ea5e9; border-color:#0ea5e9;">Hire</button>
+                                </div>
+                                <div class="list-item">
+                                    <img src="https://ui-avatars.com/api/?name=Bhai+Workers&background=334155&color=fff"
+                                        class="avatar" style="margin-right:12px; border:none; width:36px; height:36px;">
+                                    <div class="item-details">
+                                        <h4>Bhai Workers (4)</h4>
+                                        <p>Available on Oct 26</p>
+                                    </div>
+                                    <button class="outline-btn small"
+                                        style="color:#0ea5e9; border-color:#0ea5e9;">Hire</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Floating AI Chatbot -->
+        <button id="chatbot-fab"
+            style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: #0ea5e9; color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window"
+            style="position: fixed; bottom: 100px; right: 24px; width: 320px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+            <div
+                style="background: #0ea5e9; color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                        class="fa-solid fa-robot"></i> Kishan AI Expert</div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chatbot-messages"
+                style="padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                <div
+                    style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                    Sat Sri Akal! I am Kishan AI. How can I assist you today? Try clicking on an option below!
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                    <button class="chat-chip" onclick="handleChatOption('weather')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🌤️
+                        Sangrur Weather</button>
+                    <button class="chat-chip" onclick="handleChatOption('machinery')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🚜
+                        Rent Machinery</button>
+                </div>
+            </div>
+            <div
+                style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                <input type="text" placeholder="Type a message..."
+                    style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                <button
+                    style="background: #0ea5e9; color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            if (option === 'weather') {
+                try {
+                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.24&longitude=75.84&current_weather=true');
+                    const data = await res.json();
+                    appendBotMessage(`Currently in Sangrur, the temperature is <b>${Math.round(data.current_weather.temperature)}°C</b> with wind speeds up to ${data.current_weather.windspeed} km/h.`);
+                } catch (e) {
+                    appendBotMessage("Sorry, I could not fetch the live weather.");
+                }
+            } else if (option === 'machinery') {
+                appendBotMessage('Looking for available subsidized equipment...');
+                setTimeout(async () => {
+                    const res = await fetch(`${API_URL}/api/machinery`);
+                    const machinery = await res.json();
+                    if (machinery.length > 0) {
+                        let html = '<ul style="padding-left: 16px; text-align: left; margin: 0;">';
+                        machinery.slice(0, 2).forEach(item => {
+                            html += `<li style="margin-bottom:8px;"><b>${item.type}</b> (₹${item.price_per_acre}/acre) - ${item.available} units near you</li>`;
+                        });
+                        html += '</ul><br><a href="machinery.html" style="color:#0ea5e9; font-weight:600; text-decoration:none;">Go to Machinery Hub</a>';
+                        appendBotMessage(html);
+                    } else {
+                        appendBotMessage('No machinery currently verified nearby. Check back soon!');
+                    }
+                }, 800);
+            }
+        }
+
+        async function loadJobs() {
+            try {
+                const response = await fetch(`${API_URL}/api/jobs`);
+                const jobs = await response.json();
+                const container = document.getElementById('jobContainer');
+
+                // Clear out existing dummy ones
+                const header = container.querySelector('.panel-header').outerHTML;
+                let html = header;
+
+                jobs.forEach(job => {
+                    html += `
+                    <div class="job-card" style="animation: slideIn 0.3s ease-out;">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">${job.title}</h3>
+                                <div class="job-location"><i class="fa-solid fa-location-dot"></i> ${job.location}</div>
+                            </div>
+                            <span class="badge ${job.status === 'Urgent' ? 'warning' : 'blue'}">${job.status}</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="detail-item"><i class="fa-regular fa-calendar"></i> Starts ${job.start_date}</div>
+                            <div class="detail-item"><i class="fa-solid fa-users"></i> ${job.workers_needed} Workers Needed</div>
+                            <div class="detail-item"><i class="fa-solid fa-money-bill-wave"></i> ₹${job.wage_per_day} / day</div>
+                        </div>
+                        <div class="job-footer">
+                            <span style="font-size:13px; color:var(--text-muted);">Posted by ${job.farmer}</span>
+                            <button class="action-btn" style="background: #0ea5e9;" onclick="applyNow(this, ${job.id})">Apply Now (${job.applications})</button>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+
+            } catch (e) {
+                console.error("Failed to load jobs", e);
+            }
+        }
+
+        async function applyNow(btn, jobId) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> App...';
+            try {
+                const res = await fetch(`${API_URL}/api/jobs/${jobId}/apply`, {
+                    method: 'POST'
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    btn.innerHTML = `<i class="fa-solid fa-check"></i> Applied (${data.applications})`;
+                    btn.style.background = '#10b981';
+                    btn.disabled = true;
+                } else {
+                    btn.innerHTML = 'Error';
+                }
+            } catch (e) {
+                console.error("Failed to apply", e);
+                btn.innerHTML = 'Apply Now';
+            }
+        }
+
+        document.getElementById('submitJobBtn').addEventListener('click', async function () {
+            const title = document.getElementById('jobTitle').value;
+            const workers = document.getElementById('workersCount').value;
+            const wage = document.getElementById('jobWage').value;
+            const date = document.getElementById('jobDate').value;
+
+            if (!title || !workers || !wage) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            this.innerHTML = 'Posting...';
+
+            try {
+                const res = await fetch(`${API_URL}/api/jobs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: title,
+                        workers_needed: parseInt(workers),
+                        wage_per_day: parseFloat(wage),
+                        start_date: date
+                    })
+                });
+
+                if (res.ok) {
+                    const originalText = '<i class="fa-solid fa-check"></i> Posted!';
+                    this.innerHTML = originalText;
+                    this.style.background = '#10b981';
+
+                    setTimeout(() => {
+                        this.innerHTML = 'Post Request';
+                        this.style.background = '#0ea5e9';
+                        document.getElementById('jobTitle').value = '';
+                        document.getElementById('workersCount').value = '';
+                        document.getElementById('jobWage').value = '';
+                    }, 2000);
+
+                    loadJobs(); // Reload jobs from server
+                }
+            } catch (e) {
+                console.error("Failed to post job", e);
+                this.innerHTML = 'Post Request';
+            }
+        });
+
+        // Load initially
+        document.addEventListener('DOMContentLoaded', loadJobs);
+    </script>
+</body>
+
+</html>

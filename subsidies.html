@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subsidies Portal - KishanSeva</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .subsidy-theme {
+            --brand-primary: #10b981;
+            /* Green */
+            --brand-secondary: #0ea5e9;
+            /* Tech Blue */
+        }
+
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+        }
+
+        th {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 16px 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.approved {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+        }
+
+        .status-badge.rejected {
+            background: rgba(239, 68, 68, 0.15);
+            color: #b91c1c;
+        }
+
+        /* Chart placeholder styles */
+        .chart-placeholder {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            margin-top: 24px;
+            padding: 0 16px;
+            position: relative;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--brand-secondary), #38bdf8);
+            border-radius: 6px 6px 0 0;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .bar:hover {
+            background: linear-gradient(to top, var(--brand-primary), #34d399);
+        }
+
+        .bar span {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grid-line {
+            width: 100%;
+            height: 1px;
+            background: var(--border-color);
+        }
+    </style>
+</head>
+
+<body class="subsidy-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span class="highlight">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item active">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="User"
+                        class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Punjab Admin</span>
+                        <span class="user-role">Nodal Officer</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search application IDs or farmer names...">
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="primary-btn">
+                        <i class="fa-solid fa-download"></i> Export Report
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Subsidy Disbursal Portal</h1>
+                        <p class="page-subtitle">Manage CRM (Crop Residue Management) machinery subsidy applications
+                            across Punjab.</p>
+                    </div>
+                </div>
+
+                <!-- KPI Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-content">
+                            <h3>Total Budget Allocated</h3>
+                            <div class="stat-value">₹24.5 Cr</div>
+                            <div class="stat-trend positive"><i class="fa-solid fa-arrow-up"></i> 15% from last year
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;"><i
+                                class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <div class="stat-content">
+                            <h3>Subsidies Disbursed</h3>
+                            <div class="stat-value">₹18.2 Cr</div>
+                            <div class="stat-trend neutral">74% Target Reached</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i
+                                class="fa-solid fa-file-circle-exclamation"></i></div>
+                        <div class="stat-content">
+                            <h3>Pending Applications</h3>
+                            <div class="stat-value">342</div>
+                            <div class="stat-trend negative"><i class="fa-solid fa-clock"></i> Requires Approval</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                class="fa-solid fa-tractor"></i></div>
+                        <div class="stat-content">
+                            <h3>Machineries Verified</h3>
+                            <div class="stat-value">1,208</div>
+                            <div class="stat-trend positive">Happy Seeders & Balers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Breakdown -->
+                <div class="dashboard-layout" style="grid-template-columns: 1fr 1fr;">
+
+                    <!-- Approvals Chart -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Monthly Subsidy Run Rate</h2>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-grid">
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                            </div>
+                            <div class="bar" style="height: 30%;"><span>₹1.2C</span>
+                                <div class="bar-label">May</div>
+                            </div>
+                            <div class="bar" style="height: 45%;"><span>₹1.8C</span>
+                                <div class="bar-label">Jun</div>
+                            </div>
+                            <div class="bar" style="height: 60%;"><span>₹2.4C</span>
+                                <div class="bar-label">Jul</div>
+                            </div>
+                            <div class="bar" style="height: 75%;"><span>₹3.1C</span>
+                                <div class="bar-label">Aug</div>
+                            </div>
+                            <div class="bar" style="height: 90%;"><span>₹4.2C</span>
+                                <div class="bar-label">Sep</div>
+                            </div>
+                            <div class="bar" style="height: 100%; z-index: 1;"><span>₹5.5C</span>
+                                <div class="bar-label">Oct</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Insights -->
+                    <div class="panel glass-panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Insight Breakdown</h2>
+                        </div>
+                        <div class="progress-container" style="gap: 24px; margin-top: 16px;">
+                            <div>
+                                <div class="progress-label" style="margin-bottom: 8px;">
+                                    <span>Individual Farmers (50% Subsidy)</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="progress-label" style="margin-bottom: 8px;">
+                                    <span>Cooperatives / CHCs (80% Subsidy)</span>
+                                    <span>30%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill"
+                                        style="width: 30%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="progress-label" style="margin-bottom: 8px;">
+                                    <span>Panchayats (100% Subsidy)</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill"
+                                        style="width: 15%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Table -->
+                <div class="panel">
+                    <div class="panel-header" style="margin-bottom: 16px;">
+                        <h2 class="panel-title">Recent Applications</h2>
+                        <button class="outline-btn small">Filter All</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Application ID</th>
+                                    <th>Applicant Name</th>
+                                    <th>Machinery Type</th>
+                                    <th>Subsidy %</th>
+                                    <th>Amount (₹)</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#APP-4592</strong></td>
+                                    <td><i class="fa-solid fa-user-circle"
+                                            style="color:var(--text-muted); margin-right:6px;"></i> Gurpreet Singh</td>
+                                    <td>Happy Seeder</td>
+                                    <td>50%</td>
+                                    <td>₹85,000</td>
+                                    <td><span class="status-badge approved">Approved</span></td>
+                                    <td><button class="btn-text" style="color:var(--text-muted);">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#APP-4593</strong></td>
+                                    <td><i class="fa-solid fa-building"
+                                            style="color:var(--text-muted); margin-right:6px;"></i> Sangrur CHC Society
+                                    </td>
+                                    <td>Super SMS (x3)</td>
+                                    <td>80%</td>
+                                    <td>₹3,50,000</td>
+                                    <td><span class="status-badge pending">Pending Audit</span></td>
+                                    <td><button class="btn-text" onclick="approve(this)">Approve</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#APP-4594</strong></td>
+                                    <td><i class="fa-solid fa-user-circle"
+                                            style="color:var(--text-muted); margin-right:6px;"></i> Kulvindar Kaur</td>
+                                    <td>Baler</td>
+                                    <td>50%</td>
+                                    <td>₹1,20,000</td>
+                                    <td><span class="status-badge rejected">Rejected</span></td>
+                                    <td><button class="btn-text" style="color:var(--text-muted);">View Info</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#APP-4595</strong></td>
+                                    <td><i class="fa-solid fa-user-circle"
+                                            style="color:var(--text-muted); margin-right:6px;"></i> Harjit Singh</td>
+                                    <td>Paddy Straw Chopper</td>
+                                    <td>50%</td>
+                                    <td>₹45,000</td>
+                                    <td><span class="status-badge pending">Awaiting Docs</span></td>
+                                    <td><button class="btn-text" onclick="approve(this)">Approve</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Floating AI Chatbot -->
+            <button id="chatbot-fab"
+                style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: #059669; color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+                <i class="fa-solid fa-robot"></i>
+            </button>
+
+            <div id="chatbot-window"
+                style="position: fixed; bottom: 100px; right: 24px; width: 320px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+                <div
+                    style="background: #059669; color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                            class="fa-solid fa-robot"></i> Kishan AI Auditor</div>
+                    <button id="chatbot-close"
+                        style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="chatbot-messages"
+                    style="padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                    <div
+                        style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                        Hello Nodal Officer! I'm here to assist with subsidies and audit applications.
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                        <button class="chat-chip" onclick="handleChatOption('audit')"
+                            style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🔎
+                            Auto-Audit Latest</button>
+                    </div>
+                </div>
+                <div
+                    style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                    <input type="text" placeholder="Type..."
+                        style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                    <button
+                        style="background: #059669; color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                            class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        async function loadSubsidies() {
+            try {
+                const res = await fetch(`${API_URL}/api/subsidies`);
+                const data = await res.json();
+
+                // Update KPI Stats
+                const stats = document.querySelectorAll('.stat-value');
+                if (stats.length >= 4) {
+                    stats[0].innerText = `₹${data.budget_allocated} Cr`;
+                    stats[1].innerText = `₹${data.budget_disbursed} Cr`;
+                    stats[2].innerText = data.pending_applications;
+                    stats[3].innerText = data.machineries_verified.toLocaleString();
+                }
+
+                // Update Applications Table
+                const tbody = document.querySelector('tbody');
+                let html = '';
+                data.applications.forEach(app => {
+                    let actionBtn = app.action === 'Approve'
+                        ? `<button class="btn-text" onclick="approve(this)">Approve</button>`
+                        : `<button class="btn-text" style="color:var(--text-muted);">${app.action}</button>`;
+
+                    html += `
+                    <tr>
+                        <td><strong>#${app.id}</strong></td>
+                        <td><i class="fa-solid ${app.icon}" style="color:var(--text-muted); margin-right:6px;"></i> ${app.applicant}</td>
+                        <td>${app.machinery}</td>
+                        <td>${app.percent}</td>
+                        <td>₹${app.amount}</td>
+                        <td><span class="status-badge ${app.badge_class}">${app.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>`;
+                });
+                if (tbody) tbody.innerHTML = html;
+
+            } catch (e) {
+                console.error("Failed to load subsidies tracker", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSubsidies);
+
+        function approve(btn) {
+            btn.innerHTML = 'Approving...';
+            setTimeout(() => {
+                const tr = btn.closest('tr');
+                const badge = tr.querySelector('.status-badge');
+                badge.className = 'status-badge approved';
+                badge.innerText = 'Approved';
+
+                btn.innerText = 'View';
+                btn.style.color = 'var(--text-muted)';
+            }, 800);
+        }
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            if (option === 'audit') {
+                appendBotMessage('Scanning pending applications against AI fraud prevention models...');
+                setTimeout(() => {
+                    appendBotMessage('Application <b>#APP-4593</b> (Sangrur CHC Society) passes all KYC, Aadhar and bank verification checks with a 98% validity score. It is safe to approve.');
+                }, 1200);
+            }
+        }
+    </script>
+</body>
+
+</html>

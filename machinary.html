@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machinery Hub - KishanSeva</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .machinery-theme {
+            --brand-primary: #10b981;
+            /* Green */
+            --brand-secondary: #0ea5e9;
+            /* Tech Blue */
+        }
+
+        /* Grid specific to bazaar */
+        .bazaar-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .job-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            background: var(--bg-tertiary);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .job-location {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .job-details {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-item i {
+            color: var(--brand-primary);
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+
+        select.form-input {
+            appearance: none;
+        }
+    </style>
+</head>
+
+<body class="machinery-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span style="color:var(--brand-primary);">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item active">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search Happy Seeders, Balers...">
+                </div>
+                <div class="topbar-actions">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Gurpreet+Singh&background=10b981&color=fff"
+                            alt="User" class="avatar" style="border-color:#10b981;">
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="page-header" style="flex-direction: column; align-items:flex-start; gap: 8px;">
+                    <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                        <div>
+                            <h1 class="page-title"
+                                style="background: linear-gradient(to right, #0F172A, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                                Live Machinery Hub</h1>
+                            <p class="page-subtitle">Rent residue management machinery locally with instant Govt
+                                Subsidies.</p>
+                        </div>
+                        <button class="primary-btn" id="showFormBtn"
+                            style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fa-solid fa-plus"></i> List Your Machinery
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bazaar-grid">
+                    <!-- Machinery Listings -->
+                    <div class="job-list" id="machineryContainer">
+                        <div class="panel-header">
+                            <h2 class="panel-title"><i class="fa-solid fa-tractor"
+                                    style="color:var(--brand-primary);"></i> Available Machinery Nearby</h2>
+                        </div>
+                        <!-- Fetched from Backend -->
+                    </div>
+
+                    <!-- Side Panel: Post Form & Available Workers -->
+                    <div class="bazaar-sidebar">
+
+                        <!-- List Machinery Form -->
+                        <div class="panel glass-panel" id="postMachineryForm"
+                            style="margin-bottom: 24px; border-top: 4px solid var(--brand-primary);">
+                            <h2 class="panel-title" style="margin-bottom: 16px;">Rent Out Your Machine</h2>
+
+                            <div class="form-group">
+                                <label class="form-label">Machinery Type</label>
+                                <select class="form-input" id="machType">
+                                    <option value="Happy Seeder">Happy Seeder</option>
+                                    <option value="Super SMS">Super SMS</option>
+                                    <option value="Baler">Baler</option>
+                                    <option value="Other Tractor">Other Tractor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Quantity Available</label>
+                                <input type="number" class="form-input" id="machCount" placeholder="e.g. 1" min="1"
+                                    value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Price per Acre (₹)</label>
+                                <input type="number" class="form-input" id="machWage" placeholder="e.g. 1200">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Provide Govt Subsidy Rate?</label>
+                                <select class="form-input" id="machSubsidy">
+                                    <option value="true">Yes, 50% Approvable</option>
+                                    <option value="false">No, Private Load</option>
+                                </select>
+                            </div>
+                            <button class="primary-btn" id="submitMachBtn"
+                                style="width:100%; justify-content:center; background:#10b981;">Publish Listing</button>
+                        </div>
+
+                        <!-- Statistics side -->
+                        <div class="panel">
+                            <h2 class="panel-title" style="margin-bottom: 16px;">Subsidy Guidelines</h2>
+                            <div style="font-size:13px; color:var(--text-secondary); line-height: 1.5;">
+                                <p><strong>Individual Farmers:</strong> 50% subsidy on CRM machinery.</p>
+                                <p style="margin-top:10px;"><strong>Cooperative Societies:</strong> 80% subsidy for
+                                    setting up Custom Hiring Centers (CHCs).</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Floating AI Chatbot -->
+        <button id="chatbot-fab"
+            style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: var(--brand-primary); color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window"
+            style="position: fixed; bottom: 100px; right: 24px; width: 320px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+            <div
+                style="background: var(--brand-primary); color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                        class="fa-solid fa-robot"></i> Kishan AI Expert</div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chatbot-messages"
+                style="padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                <div
+                    style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                    Sat Sri Akal! I am Kishan AI. How can I assist you today? Try clicking on an option below!
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                    <button class="chat-chip" onclick="handleChatOption('weather')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🌤️
+                        Sangrur Weather</button>
+                    <button class="chat-chip" onclick="handleChatOption('labour')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">👷
+                        Show Local Labour</button>
+                </div>
+            </div>
+            <div
+                style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                <input type="text" placeholder="Type a message..."
+                    style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                <button
+                    style="background: var(--brand-primary); color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            if (option === 'weather') {
+                try {
+                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.24&longitude=75.84&current_weather=true');
+                    const data = await res.json();
+                    appendBotMessage(`Currently in Sangrur, the temperature is <b>${Math.round(data.current_weather.temperature)}°C</b> with wind speeds up to ${data.current_weather.windspeed} km/h.`);
+                } catch (e) {
+                    appendBotMessage("Sorry, I could not fetch the live weather.");
+                }
+            } else if (option === 'labour') {
+                try {
+                    appendBotMessage("Checking the backend for local farm workers...");
+                    setTimeout(async () => {
+                        const res = await fetch(`${API_URL}/api/jobs`);
+                        const jobs = await res.json();
+                        if (jobs.length > 0) {
+                            let html = '<ul style="padding-left: 16px; text-align: left; margin: 0;">';
+                            jobs.slice(0, 3).forEach(job => {
+                                html += `<li style="margin-bottom:8px;"><b>${job.title}</b> need ${job.workers_needed} workers for ₹${job.wage_per_day}/day</li>`;
+                            });
+                            html += '</ul><br><a href="labour.html" style="color:var(--brand-primary); font-weight:600; text-decoration:none;">View Labour Bazaar</a>';
+                            appendBotMessage(html);
+                        } else {
+                            appendBotMessage("No active labour requests found.");
+                        }
+                    }, 800);
+                } catch (e) {
+                    appendBotMessage("Sorry, I could not connect to the Labour API.");
+                }
+            }
+        }
+
+
+        async function loadMachinery() {
+            try {
+                const response = await fetch(`${API_URL}/api/machinery`);
+                const machinery = await response.json();
+                const container = document.getElementById('machineryContainer');
+
+                const header = container.querySelector('.panel-header').outerHTML;
+                let html = header;
+
+                machinery.forEach(item => {
+                    const subsidyBadge = item.subsidy_eligible ? '<span class="badge green" style="background: rgba(16, 185, 129, 0.2); color: #059669;">Subsidy Eligible</span>' : '';
+
+                    const machImages = {
+                        'Happy Seeder': 'images/happy_seeder.jpg',
+                        'Super SMS': 'images/super_sms.jpg',
+                        'Baler': 'https://images.unsplash.com/photo-1594732168390-e51c8db67af6?auto=format&fit=crop&q=80&w=400&h=200',
+                        'Other Tractor': 'https://images.unsplash.com/photo-1533221971754-075e7a935def?auto=format&fit=crop&q=80&w=400&h=200',
+                        'Paddy Straw Chopper': 'https://images.unsplash.com/photo-1586522301140-6d4fe742306d?auto=format&fit=crop&q=80&w=400&h=200'
+                    };
+                    const imgSrc = machImages[item.type] || machImages['Other Tractor'];
+
+                    html += `
+                    <div class="job-card" style="animation: slideIn 0.3s ease-out; overflow: hidden; padding: 0;">
+                        <img src="${imgSrc}" style="width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--border-color);" alt="${item.type}">
+                        <div style="padding: 24px;">
+                            <div class="job-header">
+                                <div>
+                                    <h3 class="job-title">${item.type}</h3>
+                                    <div class="job-location"><i class="fa-solid fa-location-dot"></i> ${item.location}</div>
+                            </div>
+                            ${subsidyBadge}
+                        </div>
+                        <div class="job-details">
+                            <div class="detail-item"><i class="fa-solid fa-tractor"></i> ${item.available} Units Available</div>
+                            <div class="detail-item"><i class="fa-solid fa-money-bill-wave"></i> ₹${item.price_per_acre} / acre</div>
+                        </div>
+                            </div>
+                            <div class="job-footer">
+                                <span style="font-size:13px; color:var(--text-muted);">Verified Owner</span>
+                                <button class="action-btn" style="background: #10b981;" onclick="bookMachine(this)">Book Machine</button>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+
+            } catch (e) {
+                console.error("Failed to load machinery", e);
+            }
+        }
+
+        function bookMachine(btn) {
+            btn.innerHTML = "Booking...";
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmed';
+                btn.style.background = '#0ea5e9';
+            }, 800);
+        }
+
+        document.getElementById('submitMachBtn').addEventListener('click', async function () {
+            const type = document.getElementById('machType').value;
+            const available = document.getElementById('machCount').value;
+            const wage = document.getElementById('machWage').value;
+            const subsidy = document.getElementById('machSubsidy').value === 'true';
+
+            if (!wage) {
+                alert("Please fill in price per acre");
+                return;
+            }
+
+            this.innerHTML = 'Publishing...';
+
+            try {
+                const res = await fetch(`${API_URL}/api/machinery`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: type,
+                        location: 'Sangrur, Private Farm',
+                        available: parseInt(available),
+                        price_per_acre: parseFloat(wage),
+                        subsidy_eligible: subsidy
+                    })
+                });
+
+                if (res.ok) {
+                    this.innerHTML = '<i class="fa-solid fa-check"></i> Listed!';
+                    this.style.background = '#0ea5e9';
+
+                    setTimeout(() => {
+                        this.innerHTML = 'Publish Listing';
+                        this.style.background = '#10b981';
+                        document.getElementById('machWage').value = '';
+                    }, 2000);
+
+                    loadMachinery(); // Reload from server
+                }
+            } catch (e) {
+                console.error("Failed to post machinery", e);
+                this.innerHTML = 'Publish Listing';
+            }
+        });
+
+        // Load initially
+        document.addEventListener('DOMContentLoaded', loadMachinery);
+    </script>
+</body>
+
+</html>

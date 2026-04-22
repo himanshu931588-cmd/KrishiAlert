@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - KishanSeva</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .farmer-theme {
+            --brand-primary: #f59e0b;
+            /* Orange/Gold for harvest */
+            --brand-secondary: #10b981;
+            /* Green */
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--brand-danger);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .alert-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--brand-warning);
+        }
+
+        .alert-box i {
+            font-size: 24px;
+            color: var(--brand-danger);
+        }
+
+        .alert-box.warning i {
+            color: var(--brand-warning);
+        }
+
+        .alert-content h4 {
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .alert-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* --- New Animations & Fun UI --- */
+        @keyframes subtleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-card {
+            animation: subtleSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .animated-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .animated-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .animated-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .animated-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .green-credits-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            cursor: default;
+            transition: transform 0.2s;
+        }
+
+        .green-credits-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar {
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover .avatar {
+            border-color: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="farmer-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span class="highlight">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item active">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Gurpreet+Singh&background=f59e0b&color=fff" alt="User"
+                        class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Gurpreet Singh</span>
+                        <span class="user-role">Sangrur, Punjab</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for Happy Seeder, workers...">
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="green-credits-badge">
+                        <i class="fa-solid fa-leaf"></i> 450 Eco-Credits
+                    </div>
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <a href="labour.html" class="primary-btn" style="text-decoration:none;">
+                        <i class="fa-solid fa-plus"></i> Request Labour
+                    </a>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Farm Overview</h1>
+                        <p class="page-subtitle">Manage your harvest, residue, and workforce effectively.</p>
+                    </div>
+                    <div class="date-picker">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                        <span>Sat, Oct 24 • 28°C Sunny</span>
+                    </div>
+                </div>
+
+                <!-- ALERTS SECTION -->
+                <div class="alert-box">
+                    <i class="fa-solid fa-fire-triangle"></i>
+                    <div class="alert-content">
+                        <h4>High Stubble Burning Risk in Your Area</h4>
+                        <p>Satellite data shows high risk of fires in Sangrur. <strong>Please do not burn
+                                residue.</strong> Book a subsidized Happy Seeder today via the Machinery section and
+                            avoid penalties.</p>
+                    </div>
+                    <button class="action-btn outline" style="margin-left:auto;">Book Seeder</button>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card animated-card">
+                        <div class="stat-icon" style="color:#f59e0b; background: rgba(245,158,11,0.1);"><i
+                                class="fa-solid fa-ruler-combined"></i></div>
+                        <div class="stat-content">
+                            <h3>Harvested Area</h3>
+                            <div class="stat-value">12<span style="font-size:16px;"> acres</span></div>
+                            <div class="stat-trend neutral">Paddy Crop</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card animated-card">
+                        <div class="stat-icon machinery-icon"><i class="fa-solid fa-tractor"></i></div>
+                        <div class="stat-content">
+                            <h3>Nearby Seeders</h3>
+                            <div class="stat-value">4</div>
+                            <div class="stat-trend positive">Available within 5 km</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card animated-card">
+                        <div class="stat-icon labour-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-content">
+                            <h3>Labour Responses</h3>
+                            <div class="stat-value">3</div>
+                            <div class="stat-trend positive">For your recent job post</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card animated-card">
+                        <div class="stat-icon" style="color:#10b981; background:rgba(16,185,129,0.1);"><i
+                                class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <div class="stat-content">
+                            <h3>Subsidy Eligibility</h3>
+                            <div class="stat-value">50%</div>
+                            <div class="stat-trend positive">On residue machinery</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-layout">
+                    <!-- My Farm Details -->
+                    <div class="panel glass-panel" style="grid-column: span 2;">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Active Field Tasks</h2>
+                            <button class="btn-text">View History</button>
+                        </div>
+
+                        <div class="list-container">
+                            <div class="list-item">
+                                <div class="item-icon" style="background:rgba(245,158,11,0.1); color:#f59e0b;"><i
+                                        class="fa-solid fa-wheat-awn"></i></div>
+                                <div class="item-details">
+                                    <h4>Field A - Paddy Harvest Complete</h4>
+                                    <p>Needs residue management before Oct 30 <span
+                                            style="color:#10b981; font-weight:600; margin-left: 8px;"><i
+                                                class="fa-solid fa-arrow-up"></i> Earn 200 Eco-Credits</span>.</p>
+                                </div>
+                                <span class="badge warning">Action Needed</span>
+                                <button class="action-btn" style="margin-left: 12px;">Manage Residue</button>
+                            </div>
+                            <div class="list-item">
+                                <div class="item-icon machinery-icon"><i class="fa-solid fa-tractor"></i></div>
+                                <div class="item-details">
+                                    <h4>Happy Seeder Booking</h4>
+                                    <p>Scheduled for Tomorrow, 9:00 AM • Operator: Ramesh</p>
+                                </div>
+                                <span class="badge green">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Floating AI Chatbot -->
+        <button id="chatbot-fab"
+            style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: var(--brand-primary); color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window"
+            style="position: fixed; bottom: 100px; right: 24px; width: 320px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+            <div
+                style="background: var(--brand-primary); color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                        class="fa-solid fa-robot"></i> Kishan AI Expert</div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chatbot-messages"
+                style="padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                <div
+                    style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                    Sat Sri Akal! I am Kishan AI. How can I assist you today? Try clicking on an option below!
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                    <button class="chat-chip" onclick="handleChatOption('weather')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🌤️
+                        Sangrur Weather</button>
+                    <button class="chat-chip" onclick="handleChatOption('labour')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">👷
+                        Show Local Labour</button>
+                </div>
+            </div>
+            <div
+                style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                <input type="text" placeholder="Type a message..."
+                    style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                <button
+                    style="background: var(--brand-primary); color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        // --- Standard UI logic ---
+        document.querySelector('.action-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            this.innerText = 'Redirecting...';
+            setTimeout(() => {
+                this.innerText = 'Book Seeder';
+            }, 1000);
+        });
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            if (option === 'weather') {
+                try {
+                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.24&longitude=75.84&current_weather=true');
+                    const data = await res.json();
+                    appendBotMessage(`Currently in Sangrur, the temperature is <b>${Math.round(data.current_weather.temperature)}°C</b> with wind speeds up to ${data.current_weather.windspeed} km/h.`);
+                } catch (e) {
+                    appendBotMessage("Sorry, I could not fetch the live weather.");
+                }
+            } else if (option === 'labour') {
+                try {
+                    appendBotMessage("Checking the backend for local farm workers...");
+                    setTimeout(async () => {
+                        const res = await fetch(`${API_URL}/api/jobs`);
+                        const jobs = await res.json();
+                        if (jobs.length > 0) {
+                            let html = '<ul style="padding-left: 16px; text-align: left; margin: 0;">';
+                            jobs.slice(0, 3).forEach(job => {
+                                html += `<li style="margin-bottom:8px;"><b>${job.title}</b> need ${job.workers_needed} workers for ₹${job.wage_per_day}/day</li>`;
+                            });
+                            html += '</ul><br><a href="labour.html" style="color:var(--brand-primary); font-weight:600; text-decoration:none;">View Labour Bazaar</a>';
+                            appendBotMessage(html);
+                        } else {
+                            appendBotMessage("No active labour requests found.");
+                        }
+                    }, 800);
+                } catch (e) {
+                    appendBotMessage("Sorry, I could not connect to the Labour API.");
+                }
+            }
+        }
+
+        // --- Farmer Dashboard Data ---
+        async function fetchFarmerData() {
+            try {
+                // Fetch dynamic Weather from Open-Meteo API
+                const weatherRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.24&longitude=75.84&current_weather=true');
+                const weatherData = await weatherRes.json();
+                const temp = Math.round(weatherData.current_weather.temperature);
+                const code = weatherData.current_weather.weathercode;
+                let condition = "Sunny";
+                if (code > 1) condition = "Cloudy";
+                if (code > 50) condition = "Rainy";
+
+                const datePickerSpan = document.querySelector('.date-picker span');
+                const d = new Date();
+                datePickerSpan.innerHTML = `Today, ${d.toLocaleString('default', { month: 'short' })} ${d.getDate()} &bull; ${temp}&deg;C ${condition}`;
+
+                // Fetch machinery counts
+                const machRes = await fetch(`${API_URL}/api/machinery`);
+                const machinery = await machRes.json();
+
+                let seederCount = 0;
+                machinery.forEach(item => {
+                    if (item.type.includes('Seeder')) {
+                        seederCount += item.available;
+                    }
+                });
+
+                const statValues = document.querySelectorAll('.stat-value');
+                if (statValues.length > 1) {
+                    statValues[1].innerText = seederCount; // Nearby Seeders
+                }
+
+                // Fetch hotspots to check village risk
+                const hotRes = await fetch(`${API_URL}/api/hotspots`);
+                const hotspots = await hotRes.json();
+
+                const alertBox = document.querySelector('.alert-box');
+                const myVillage = 'Sangrur'; // Mock farmer location
+
+                const myRisk = hotspots.find(h => h.village === myVillage);
+                if (myRisk && (myRisk.riskLevel === 'Severe' || myRisk.riskLevel === 'High')) {
+                    alertBox.style.display = 'flex';
+                    alertBox.querySelector('h4').innerText = `${myRisk.riskLevel} Stubble Burning Risk in Your Area`;
+                } else {
+                    alertBox.style.display = 'none'; // Hide if no risk
+                }
+
+            } catch (e) {
+                console.error("Failed to load farmer data", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchFarmerData);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KishanSeva - Smart Agriculture Support</title>
+    <meta name="description" content="Satellite-based stubble burning detection and farm labour marketplace platform.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span class="highlight">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item active">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="User"
+                        class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Punjab Admin</span>
+                        <span class="user-role">Nodal Officer</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search villages, machinery, or farmers...">
+                </div>
+
+                <div class="topbar-actions">
+                    <!-- Google Translate Widget -->
+                    <div id="google_translate_element" style="margin-right: 12px; transform: translateY(4px);"></div>
+
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="primary-btn" onclick="submitTopAlert(this)">
+                        <i class="fa-solid fa-plus"></i> Submit Alert
+                    </button>
+                    <script>
+                        function submitTopAlert(btn) {
+                            const original = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+                            btn.style.opacity = '0.8';
+                            setTimeout(() => {
+                                btn.innerHTML = '<i class="fa-solid fa-check"></i> Alert Submitted';
+                                btn.style.background = '#10b981';
+                                btn.style.opacity = '1';
+
+                                // Show detailed toast notification
+                                showToastMessage('<b>Alert Successfully Dispatched!</b><br>Report dispatched to Govt. authorities: High risk of stubble burning detected on this farmland.', 'success');
+
+                                setTimeout(() => {
+                                    btn.innerHTML = original;
+                                    btn.style.background = '';
+                                }, 3000);
+                            }, 1500);
+                        }
+
+                        function showToastMessage(msg, type = 'info') {
+                            const toast = document.createElement('div');
+                            toast.style.position = 'fixed';
+                            toast.style.top = '24px';
+                            toast.style.left = '50%';
+                            toast.style.transform = 'translateX(-50%)';
+                            toast.style.background = type === 'success' ? '#10b981' : '#3b82f6';
+                            toast.style.color = '#fff';
+                            toast.style.padding = '16px 24px';
+                            toast.style.borderRadius = '12px';
+                            toast.style.boxShadow = '0 10px 25px -5px rgba(0,0,0,0.2)';
+                            toast.style.zIndex = '9999';
+                            toast.style.animation = 'slideIn 0.3s ease-out';
+                            toast.style.display = 'flex';
+                            toast.style.alignItems = 'flex-start';
+                            toast.style.gap = '16px';
+                            toast.style.maxWidth = '450px';
+                            toast.style.lineHeight = '1.5';
+
+                            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 24px; margin-top: 2px;"></i> <div style="font-size: 14px;">${msg}</div>`;
+                            document.body.appendChild(toast);
+
+                            setTimeout(() => {
+                                toast.style.opacity = '0';
+                                toast.style.transition = 'opacity 0.4s ease-out';
+                                setTimeout(() => toast.remove(), 400);
+                            }, 6000);
+                        }
+
+                        function reportLocationToGovt(btn) {
+                            const original = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Data...';
+                            btn.style.opacity = '0.8';
+                            setTimeout(() => {
+                                btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent to Govt Portal';
+                                btn.style.background = '#ef4444';
+                                btn.style.color = '#fff';
+                                btn.style.opacity = '1';
+
+                                showToastMessage('<b>Geospatial Data Uploaded</b><br>Coordinates for 42 high-risk zones in Sangrur have been officially logged with the State Environmental Ministry for proactive squad deployment.', 'info');
+
+                                setTimeout(() => {
+                                    btn.innerHTML = original;
+                                    btn.style.background = '';
+                                    btn.style.color = '#ef4444';
+                                }, 4000);
+                            }, 1200);
+                        }
+                    </script>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Welcome back, Nodal Officer</h1>
+                        <p class="page-subtitle">Here is the latest status on crop burning and resource availability
+                            across Punjab.</p>
+                    </div>
+                    <div class="date-picker">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Today (Oct 24, Harvest Season)</span>
+                    </div>
+                </div>
+
+                <!-- Problem Statement & Solution -->
+                <div class="panel glass-panel"
+                    style="margin-bottom: 24px; padding: 32px; border-left: 4px solid var(--brand-primary); animation: slideIn 0.4s ease-out both;">
+                    <h2 class="panel-title" style="margin-bottom: 16px; font-size: 20px;"><i
+                            class="fa-solid fa-bullseye gradient-text"></i> Our Mission: Solving the Stubble Burning
+                        Crisis</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+
+                        <!-- The Problem -->
+                        <div
+                            style="background: rgba(239, 68, 68, 0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.1); display: flex; flex-direction: column; gap: 8px;">
+                            <h3
+                                style="color: var(--brand-danger); font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-triangle-exclamation"></i> The Problem Statement
+                            </h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                                Post-harvest stubble burning causes severe toxic SMOG and air pollution crises across
+                                North India. Annually, farmers resort to burning residue because expensive CRM machinery
+                                (like Happy Seeders/Balers) and clearing labour are incredibly difficult to rent,
+                                locate, and afford during the very short 15-day harvest window.
+                            </p>
+                            <!-- Images -->
+                            <div
+                                style="display: flex; gap: 8px; margin-top: 12px; overflow: hidden; border-radius: 8px;">
+                                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=300&h=200"
+                                    style="flex: 1; min-width: 0; object-fit: cover; height: 100px; filter: contrast(1.1) brightness(0.9);"
+                                    alt="Burning Field">
+                                <img src="images/smog.jpg"
+                                    style="flex: 1; min-width: 0; object-fit: cover; height: 100px; filter: contrast(1.1) brightness(0.9);"
+                                    alt="Thick Smog">
+                                <img src="images/charred.jpg"
+                                    style="flex: 1; min-width: 0; object-fit: cover; height: 100px; filter: contrast(1.1) brightness(0.9);"
+                                    alt="Charred Land">
+                            </div>
+                        </div>
+
+                        <!-- The Solution -->
+                        <div
+                            style="background: rgba(16, 185, 129, 0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.1); display: flex; flex-direction: column; gap: 8px;">
+                            <h3
+                                style="color: var(--brand-primary); font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-check-double"></i> How KishanSeva Solves It
+                            </h3>
+                            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                                <b>KishanSeva</b> is a unified digital ecosystem. We leverage NASA Satellite API data
+                                and AI to calculate high-risk burning hotspots, instantly route Govt. Subsidies directly
+                                to farmers, and provide hyper-local <b>Machinery</b> and <b>Labour</b> bazaars to
+                                securely rent required clearing resources before any fires are lit.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Smart Agriculture Dashboard Section -->
+                <div class="panel glass-panel"
+                    style="margin-bottom: 24px; padding: 24px; animation: slideIn 0.5s ease-out both;">
+                    <h2 class="panel-title" style="margin-bottom: 8px;">Smart agriculture dashboard with weather
+                        forecast trend</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 24px;">The following indices
+                        showcase smart farming dashboard that can be cleverly monitor crop performance and productivity.
+                        It provides information about key metrics such as suspected farmland statistics, weather trends,
+                        farmland utilization, etc.</p>
+
+                    <div style="display: grid; grid-template-columns: 260px 1fr; gap: 24px;">
+                        <!-- Weather Sidebar -->
+                        <div
+                            style="background: #e6f7ef; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                            <div style="text-align: center; margin-top: 10px;">
+                                <i class="fa-solid fa-cloud-sun" style="font-size: 64px; color: #166534;"></i>
+                                <div style="display: flex; gap: 4px; justify-content: center; margin-top: 12px;">
+                                    <div style="width: 8px; height: 16px; background: #84cc16; border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 12px; background: #84cc16; border-radius: 4px; margin-top: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8px; height: 20px; background: #84cc16; border-radius: 4px; margin-top: -4px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div
+                                    style="background: #84cc16; color: white; display: inline-block; padding: 6px 32px; border-radius: 24px; font-size: 28px; font-weight: bold;">
+                                    12<span style="font-size: 16px; vertical-align: super;">°C</span>
+                                </div>
+                                <div style="margin-top: 12px; color: #475569; font-weight: 500; font-size: 14px;">Monday
+                                    16:30</div>
+                            </div>
+                            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 0;">
+                            <div
+                                style="display: flex; align-items: center; gap: 12px; color: #475569; font-weight: 500; font-size: 14px;">
+                                <i class="fa-solid fa-cloud"
+                                    style="color: #84cc16; font-size: 18px; width: 24px; text-align: center;"></i>
+                                Mostly Cloudy
+                            </div>
+                            <div
+                                style="display: flex; align-items: center; gap: 12px; color: #475569; font-weight: 500; font-size: 14px;">
+                                <i class="fa-solid fa-cloud-rain"
+                                    style="color: #84cc16; font-size: 18px; width: 24px; text-align: center;"></i> Rain
+                                - 10%
+                            </div>
+                        </div>
+
+                        <!-- Statistics Grid -->
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- Top Stats -->
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; background: white;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 50%; background: #0f172a; color: white; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">
+                                            Suspicious area</div>
+                                        <div
+                                            style="font-size: 18px; font-weight: 700; background: #166534; color: white; padding: 2px 10px; border-radius: 4px; display: inline-block; margin: 4px 0;">
+                                            170</div>
+                                        <div style="font-size: 10px; color: #16a34a; font-weight: 500;">MoM +10%</div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; background: white;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 50%; background: white; border: 2px solid #166534; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                        <i class="fa-solid fa-life-ring"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">
+                                            Area of doubt</div>
+                                        <div
+                                            style="font-size: 18px; font-weight: 700; background: #166534; color: white; padding: 2px 10px; border-radius: 4px; display: inline-block; margin: 4px 0;">
+                                            880</div>
+                                        <div style="font-size: 10px; color: #16a34a; font-weight: 500;">MoM +20%</div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; background: white;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 50%; background: white; border: 2px solid #166534; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                        <i class="fa-solid fa-store"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">
+                                            Farm manager</div>
+                                        <div
+                                            style="font-size: 18px; font-weight: 700; background: #166534; color: white; padding: 2px 10px; border-radius: 4px; display: inline-block; margin: 4px 0;">
+                                            360</div>
+                                        <div style="font-size: 10px; color: #dc2626; font-weight: 500;">MoM -10%</div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; background: white;">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 50%; background: white; border: 2px solid #166534; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                        <i class="fa-solid fa-sun"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">
+                                            Not planted</div>
+                                        <div
+                                            style="font-size: 18px; font-weight: 700; background: #166534; color: white; padding: 2px 10px; border-radius: 4px; display: inline-block; margin: 4px 0;">
+                                            255</div>
+                                        <div style="font-size: 10px; color: #16a34a; font-weight: 500;">MoM +40%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Charts Grid -->
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px;">
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; background: white;">
+                                    <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 2px;">Suspected
+                                        farmland statistics</h4>
+                                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px;">At
+                                        doubt category statistics</div>
+                                    <div style="height: 140px;">
+                                        <canvas id="doubtChart"></canvas>
+                                    </div>
+                                </div>
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; text-align: center; display: flex; flex-direction: column; justify-content: center; background: white;">
+                                    <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Area of doubt
+                                    </h4>
+                                    <div style="height: 120px; position: relative;">
+                                        <canvas id="donutChart"></canvas>
+                                        <div
+                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                            <div style="font-size: 16px; font-weight: 700;">144,648</div>
+                                            <div style="font-size: 9px; color: var(--text-secondary);">
+                                                County<br>farmland area</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Charts -->
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px;">
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; background: white;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                        <h4 style="font-size: 13px; font-weight: 600;">Weather Trends</h4>
+                                        <div style="font-size: 11px; color: var(--text-secondary);">Last 20 days</div>
+                                    </div>
+                                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">20°C 60mm</div>
+                                    <div style="height: 50px;">
+                                        <canvas id="weatherTrendsChart"></canvas>
+                                    </div>
+                                </div>
+                                <div
+                                    style="border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; background: white;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                                        <h4
+                                            style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+                                            Farmland<br>Utilization</h4>
+                                        <div style="font-size: 20px; font-weight: 700;">70%</div>
+                                    </div>
+                                    <div style="display: flex; gap: 3px; height: 35px; align-items: flex-end;">
+                                        <div style="flex: 1; background: #166534; height: 30%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 40%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 50%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 60%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 80%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 90%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 100%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 85%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 95%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #166534; height: 70%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #84cc16; height: 60%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #84cc16; height: 50%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #84cc16; height: 40%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #84cc16; height: 30%; border-radius: 2px;">
+                                        </div>
+                                        <div style="flex: 1; background: #84cc16; height: 40%; border-radius: 2px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card alert-card">
+                        <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+                        <div class="stat-content">
+                            <h3>High-Risk Hotspots</h3>
+                            <div class="stat-value">42</div>
+                            <div class="stat-trend negative">
+                                <i class="fa-solid fa-arrow-trend-up"></i> +12% from yesterday
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon machinery-icon"><i class="fa-solid fa-tractor"></i></div>
+                        <div class="stat-content">
+                            <h3>Available Machines</h3>
+                            <div class="stat-value">1,248</div>
+                            <div class="stat-trend positive">
+                                <i class="fa-solid fa-arrow-trend-up"></i> +5.4% new listings
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon labour-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-content">
+                            <h3>Active Job Requests</h3>
+                            <div class="stat-value">856</div>
+                            <div class="stat-trend neutral">
+                                <i class="fa-solid fa-minus"></i> Stable
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon success-icon"><i class="fa-solid fa-leaf"></i></div>
+                        <div class="stat-content">
+                            <h3>Fires Prevented</h3>
+                            <div class="stat-value">3,102</div>
+                            <div class="stat-trend positive">
+                                <i class="fa-solid fa-arrow-trend-up"></i> +24% vs last year
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Layout -->
+                <div class="dashboard-layout">
+                    <!-- Live Map Section -->
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">NASA Satellite Live Risk Map <span
+                                    class="live-indicator">LIVE</span></h2>
+                            <button class="btn-text">View Full Map <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                        <div class="map-container" id="satellite-map" style="background: none; z-index: 1;">
+                            <!-- Leaflet injects the map here -->
+                            <div class="map-legend"
+                                style="z-index: 999; bottom: 10px; left: 10px; position: absolute; background: rgba(255, 255, 255, 0.85); padding: 12px; border-radius: 8px;">
+                                <div class="legend-item"><span class="dot d-severe"></span> Severe Risk</div>
+                                <div class="legend-item"><span class="dot d-high"></span> High Risk</div>
+                                <div class="legend-item"><span class="dot d-medium"></span> Medium Risk</div>
+                                <div class="legend-item" style="margin-top: 8px; font-size:10px; color:#64748b;"><i
+                                        class="fa-solid fa-satellite"></i> Real-time NASA EOSDIS</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-panels">
+                        <!-- AI Insights -->
+                        <div class="panel glass-panel">
+                            <div class="panel-header">
+                                <h2 class="panel-title"><i class="fa-solid fa-wand-magic-sparkles gradient-text"></i> AI
+                                    Prediction</h2>
+                                <button class="btn-text" onclick="window.location.href='analytics.html'">View Analytics
+                                    <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="insight-content">
+                                <p><strong>Sangrur district</strong> has an 86% probability of severe burnings over the
+                                    next 48 hours based on harvest completion dates.</p>
+                                <div class="action-buttons" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button class="outline-btn small" onclick="reportLocationToGovt(this)"
+                                        style="border-color: #ef4444; color: #ef4444;"><i
+                                            class="fa-solid fa-building-flag"></i> Alert Govt</button>
+                                    <button class="primary-btn small" onclick="sendSmsAlert(this)">Send SMS
+                                        Alerts</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subsidy Tracker -->
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h2 class="panel-title">Machinery Subsidies Claimed</h2>
+                                <button class="btn-text" onclick="window.location.href='subsidies.html'">View Portal <i
+                                        class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Fund Utilization</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 72%;"></div>
+                                </div>
+                                <p class="progress-desc">₹1.4 Cr remaining in District Fund</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketplaces -->
+                <div class="marketplaces-layout">
+                    <!-- Machinery Market -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Machinery Marketplace</h2>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        <div class="list-container">
+                            <div class="list-item">
+                                <div class="item-icon machinery"><i class="fa-solid fa-tractor"></i></div>
+                                <div class="item-details">
+                                    <h4>Happy Seeder (8 Row)</h4>
+                                    <p>Available in 2.4 km • ₹1200/acre</p>
+                                </div>
+                                <button class="action-btn">Book</button>
+                            </div>
+                            <div class="list-item">
+                                <div class="item-icon machinery"><i class="fa-solid fa-tractor"></i></div>
+                                <div class="item-details">
+                                    <h4>Super SMS Attachment</h4>
+                                    <p>Available in 5.1 km • ₹800/acre</p>
+                                </div>
+                                <button class="action-btn">Book</button>
+                            </div>
+                            <div class="list-item">
+                                <div class="item-icon machinery"><i class="fa-solid fa-tractor"></i></div>
+                                <div class="item-details">
+                                    <h4>Balers (Square)</h4>
+                                    <p>Govt. Subsidized • Available tomorrow</p>
+                                </div>
+                                <button class="action-btn outline">Contact</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Labour Market -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Labour Marketplace</h2>
+                            <button class="btn-text">Post Job</button>
+                        </div>
+                        <div class="list-container">
+                            <div class="list-item" style="flex-wrap: wrap; gap: 8px;">
+                                <div class="item-icon labour" style="margin-right: 12px;"><img
+                                        src="https://ui-avatars.com/api/?name=Singh+Farm&background=0ea5e9&color=fff"
+                                        style="border-radius:12px;width:100%;height:100%;"></div>
+                                <div class="item-details" style="flex: 1; min-width: 150px;">
+                                    <h4 style="margin-bottom: 2px; display: flex; align-items: center; gap: 8px;">
+                                        Residue Clearing <span class="badge"
+                                            style="background: rgba(16, 185, 129, 0.15); color: #10b981; margin-left: auto; font-size: 9px;"><i
+                                                class="fa-solid fa-leaf"></i> +50 Eco-Credits</span></h4>
+                                    <p style="margin-bottom: 4px;"><i class="fa-solid fa-calendar-day"
+                                            style="font-size: 11px; margin-right: 4px;"></i> Urgent • <i
+                                            class="fa-solid fa-indian-rupee-sign"
+                                            style="font-size: 11px; margin-right: 4px; margin-left: 6px;"></i> ₹800/day
+                                        + Meals</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    <span class="badge yellow">Pending</span>
+                                    <button class="action-btn small"
+                                        style="padding: 4px 12px; font-size: 12px; height: 28px;">Apply Now</button>
+                                </div>
+                            </div>
+                            <div class="list-item" style="flex-wrap: wrap; gap: 8px;">
+                                <div class="item-icon labour" style="margin-right: 12px;"><i
+                                        class="fa-solid fa-person-digging"></i></div>
+                                <div class="item-details" style="flex: 1; min-width: 150px;">
+                                    <h4 style="margin-bottom: 2px;">Paddy Harvesting Team</h4>
+                                    <p style="margin-bottom: 4px;"><i class="fa-solid fa-calendar-day"
+                                            style="font-size: 11px; margin-right: 4px;"></i> Tomorrow • <i
+                                            class="fa-solid fa-users"
+                                            style="font-size: 11px; margin-right: 4px; margin-left: 6px;"></i> 5 Workers
+                                    </p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    <span class="badge blue">12 Applied</span>
+                                    <button class="action-btn small"
+                                        style="padding: 4px 12px; font-size: 12px; height: 28px;">Apply Now</button>
+                                </div>
+                            </div>
+                            <div class="list-item" style="flex-wrap: wrap; gap: 8px;">
+                                <div class="item-icon labour" style="margin-right: 12px;"><i
+                                        class="fa-solid fa-tractor"></i></div>
+                                <div class="item-details" style="flex: 1; min-width: 150px;">
+                                    <h4 style="margin-bottom: 2px;">Wheat Sowing Help</h4>
+                                    <p style="margin-bottom: 4px;"><i class="fa-solid fa-calendar-day"
+                                            style="font-size: 11px; margin-right: 4px;"></i> Oct 28 • <i
+                                            class="fa-solid fa-indian-rupee-sign"
+                                            style="font-size: 11px; margin-right: 4px; margin-left: 6px;"></i> ₹600/day
+                                    </p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    <span class="badge green">Filled</span>
+                                    <button class="action-btn outline small"
+                                        style="padding: 4px 12px; font-size: 12px; height: 28px; opacity: 0.6; cursor: not-allowed;"
+                                        disabled>Closed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biomass Waste Collection -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Biomass Buyers</h2>
+                            <button class="btn-text">Sell Now</button>
+                        </div>
+                        <div class="list-container" id="biomass-container">
+                            <div class="list-item">
+                                <div class="item-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i
+                                        class="fa-solid fa-industry"></i></div>
+                                <div class="item-details">
+                                    <h4>Indian Oil (IOCL) CBG Plant</h4>
+                                    <p>Buying straw for Bio-Gas • ₹2000/ton</p>
+                                </div>
+                                <button class="action-btn">Contact</button>
+                            </div>
+                            <div class="list-item">
+                                <div class="item-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                        class="fa-solid fa-leaf"></i></div>
+                                <div class="item-details">
+                                    <h4>Punjab Bio-Energy Ltd</h4>
+                                    <p>Requires bails • Immediate pickup</p>
+                                </div>
+                                <span class="badge blue">Verified</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="item-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;"><i
+                                        class="fa-solid fa-recycle"></i></div>
+                                <div class="item-details">
+                                    <h4>EcoPellets Solutions</h4>
+                                    <p>Biomolar wastes & crop residue</p>
+                                </div>
+                                <span class="badge yellow">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <!-- Floating AI Chatbot -->
+        <button id="chatbot-fab"
+            style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: #ef4444; color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window"
+            style="position: fixed; bottom: 100px; right: 24px; width: 340px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+            <div id="chatbot-header"
+                style="background: #ef4444; color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: move;">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                        class="fa-solid fa-robot"></i> Kishan AI Expert</div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chatbot-messages"
+                style="padding: 16px; height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                <div
+                    style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                    Sat Sri Akal! I am Kishan AI. I can give you all information about this platform or fetch live data.
+                    Try an option below or type a question!
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                    <button class="chat-chip" onclick="handleChatOption('about')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">ℹ️
+                        About Us</button>
+                    <button class="chat-chip" onclick="handleChatOption('stubble')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🔥
+                        Stubble Burning</button>
+                    <button class="chat-chip" onclick="handleChatOption('machinery')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🚜
+                        Machinery</button>
+                    <button class="chat-chip" onclick="handleChatOption('labour')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">👥
+                        Labour & Eco-Credits</button>
+                    <button class="chat-chip" onclick="handleChatOption('biomass')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🏭
+                        Biomass Buyers</button>
+                    <button class="chat-chip" onclick="handleChatOption('subsidies')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">�
+                        Subsidies</button>
+                    <button class="chat-chip" onclick="handleChatOption('weather')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🌤️
+                        Sangrur Weather</button>
+                </div>
+            </div>
+            <div
+                style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                <input type="text" id="chat-input" placeholder="Type a message..."
+                    style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                <button id="chat-submit"
+                    style="background: #ef4444; color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        async function initMap() {
+            // Initialize Leaflet map centered on Punjab
+            const map = L.map('satellite-map').setView([30.9, 75.85], 7);
+
+            // Base Map Layer (Light Theme to match the dashboard)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO'
+            }).addTo(map);
+
+            try {
+                // Connect to our Backend for internal hotspots and real NASA EONET data
+                const response = await fetch(`${API_URL}/api/hotspots`);
+                const hotspots = await response.json();
+
+                // Add hotspots to map
+                hotspots.forEach(spot => {
+                    const lat = spot.lat || 30.9 + (Math.random() - 0.5);
+                    const lng = spot.lng || 75.85 + (Math.random() - 0.5);
+
+                    let color = '#facc15'; // medium
+                    if (spot.riskLevel === 'Severe') color = '#ef4444';
+                    if (spot.riskLevel === 'High') color = '#f59e0b';
+
+                    const pulseIcon = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div class="hotspot" style="background:${color}; box-shadow: 0 0 10px ${color}; width:16px; height:16px; border-radius:50%; position:relative;">
+                                <span class="pulse" style="background:${color}; animation: ripple 2s infinite ease-out; position:absolute; width:100%; height:100%; border-radius:50%; top:0; left:0;"></span>
+                               </div>`,
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10]
+                    });
+
+                    L.marker([lat, lng], { icon: pulseIcon })
+                        .bindPopup(`<b>${spot.village}</b><br>Risk: ${spot.riskLevel}<br>Fires: ${spot.fires_detected}`)
+                        .addTo(map);
+                });
+            } catch (e) {
+                console.error("Failed to load map data", e);
+            }
+        }
+
+        async function loadMarketplaces() {
+            try {
+                // Machinery
+                let res = await fetch(`${API_URL}/api/machinery`);
+                let machinery = await res.json();
+                let machHtml = '';
+                machinery.forEach(item => {
+                    const machImages = {
+                        'Happy Seeder': 'images/happy_seeder.jpg',
+                        'Super SMS': 'images/super_sms.jpg',
+                        'Baler': 'https://images.unsplash.com/photo-1594732168390-e51c8db67af6?auto=format&fit=crop&q=80&w=400&h=200',
+                        'Other Tractor': 'https://images.unsplash.com/photo-1533221971754-075e7a935def?auto=format&fit=crop&q=80&w=400&h=200',
+                        'Paddy Straw Chopper': 'https://images.unsplash.com/photo-1586522301140-6d4fe742306d?auto=format&fit=crop&q=80&w=400&h=200'
+                    };
+                    const imgSrc = machImages[item.type] || machImages['Other Tractor'];
+
+                    machHtml += `
+                        <div class="list-item" style="padding: 12px; display: flex; align-items: center; gap: 16px;">
+                            <img src="${imgSrc}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" alt="${item.type}">
+                            <div class="item-details" style="flex: 1; min-width: 0;">
+                                <h4 style="margin: 0; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.type}</h4>
+                                <p style="margin: 4px 0 0; font-size: 12px; color: var(--text-muted);">${item.location} • ₹${item.price_per_acre}/acre</p>
+                            </div>
+                            <button class="action-btn" style="padding: 6px 14px; font-size: 12px;">Book</button>
+                        </div>
+                    `;
+                });
+
+                // Add contact button for govt
+                machHtml += `
+                    <div class="list-item" style="padding: 12px; display: flex; align-items: center; gap: 16px;">
+                        <img src="https://images.unsplash.com/photo-1594732168390-e51c8db67af6?auto=format&fit=crop&q=80&w=400&h=200" style="width: 56px; height: 56px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" alt="Baler">
+                        <div class="item-details" style="flex: 1; min-width: 0;">
+                            <h4 style="margin: 0; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Balers (Square)</h4>
+                            <p style="margin: 4px 0 0; font-size: 12px; color: var(--text-muted);">Govt. Subsidized • Available tomorrow</p>
+                        </div>
+                        <button class="action-btn outline" style="padding: 6px 14px; font-size: 12px;">Contact</button>
+                    </div>
+                `;
+
+                const machContainer = document.querySelectorAll('.list-container')[0];
+                machContainer.innerHTML = machHtml;
+
+                // Jobs
+                res = await fetch(`${API_URL}/api/jobs`);
+                let jobs = await res.json();
+                let jobHtml = '';
+                jobs.slice(0, 3).forEach(item => {
+                    const isEcoFriendly = item.title.toLowerCase().includes('residue') || item.title.toLowerCase().includes('stubble');
+                    const ecoBadge = isEcoFriendly ? `<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; margin-left: auto; font-size: 9px;"><i class="fa-solid fa-leaf"></i> +50 Eco-Credits</span>` : '';
+
+                    jobHtml += `
+                        <div class="list-item" style="flex-wrap: wrap; gap: 8px;">
+                            <div class="item-icon labour" style="margin-right: 12px;"><i class="fa-solid fa-person-digging"></i></div>
+                            <div class="item-details" style="flex: 1; min-width: 150px;">
+                                <h4 style="margin-bottom: 2px; display: flex; align-items: center; gap: 8px;">${item.title} ${ecoBadge}</h4>
+                                <p style="margin-bottom: 4px;"><i class="fa-solid fa-calendar-day" style="font-size: 11px; margin-right: 4px;"></i> ${item.start_date} • <i class="fa-solid fa-users" style="font-size: 11px; margin-right: 4px; margin-left: 6px;"></i> ${item.workers_needed} Workers</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                <span class="badge ${item.status === 'Urgent' || item.status === 'New' ? 'yellow' : 'blue'}">${item.status}</span>
+                                <button class="action-btn small" style="padding: 4px 12px; font-size: 12px; height: 28px;">Apply Now</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                const jobContainer = document.querySelectorAll('.list-container')[1];
+                jobContainer.innerHTML = jobHtml;
+
+            } catch (e) {
+                console.error("Failed to load marketplace data", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            loadMarketplaces();
+            initCharts();
+        });
+
+        // --- Twilio SMS Alert Logic ---
+        async function sendSmsAlert(btn) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending SMS...';
+            try {
+                const res = await fetch(`${API_URL}/api/sms`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        phone: "+919876543210", // Using mockup formatting
+                        message: "KISHAN SEVA ALERT: High risk of stubble burning detected in Sangrur. Please avail 50% subsidy on Happy Seeders at your nearest CHC today to protect the environment and avoid fines."
+                    })
+                });
+
+                if (res.ok) {
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> SMS Dispatched';
+                    btn.style.background = '#10b981';
+                } else {
+                    throw new Error('Server Error');
+                }
+            } catch (e) {
+                console.error("SMS dispatch failed", e);
+                btn.innerHTML = 'Send SMS Alerts';
+            }
+        }
+
+        function initCharts() {
+            // Area Chart
+            const doubtCtx = document.getElementById('doubtChart');
+            if (doubtCtx) {
+                new Chart(doubtCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['2019 Nov', '2019 Dec', '2020 Jan', '2020 Feb', '2020 Mar', '2020 Apr'],
+                        datasets: [{
+                            label: 'Suspected Area',
+                            data: [1800, 1300, 1600, 2400, 1500, 2100],
+                            borderColor: '#166534',
+                            backgroundColor: 'rgba(22, 101, 52, 0.2)',
+                            fill: true,
+                            tension: 0,
+                            pointBackgroundColor: '#166534',
+                            pointRadius: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 9 }, color: '#94a3b8' }
+                            },
+                            y: {
+                                ticks: { font: { size: 9 }, color: '#94a3b8', stepSize: 500 },
+                                min: 500,
+                                max: 2500,
+                                border: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Donut Chart
+            const donutCtx = document.getElementById('donutChart');
+            if (donutCtx) {
+                new Chart(donutCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Doubt', 'Other'],
+                        datasets: [{
+                            data: [40, 60],
+                            backgroundColor: ['#166534', '#84cc16'],
+                            borderWidth: 0,
+                            cutout: '75%'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }
+                        }
+                    }
+                });
+            }
+
+            // Weather Trends
+            const weatherCtx = document.getElementById('weatherTrendsChart');
+            if (weatherCtx) {
+                new Chart(weatherCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                        datasets: [
+                            {
+                                data: [20, 22, 19, 21, 23, 20, 18, 20, 22, 19],
+                                borderColor: '#166534',
+                                borderWidth: 2,
+                                tension: 0,
+                                pointRadius: 0
+                            },
+                            {
+                                data: [18, 19, 17, 18, 21, 19, 16, 17, 19, 17],
+                                borderColor: '#84cc16',
+                                borderWidth: 2,
+                                borderDash: [4, 4],
+                                tension: 0,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }
+                        },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false, min: 14, max: 25 }
+                        }
+                    }
+                });
+            }
+        }
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSubmit = document.getElementById('chat-submit');
+        const chatbotHeader = document.getElementById('chatbot-header');
+
+        // Draggable Logic
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        chatbotHeader.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            chatbotWindow.style.transition = 'none'; // remove transition for smooth drag
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = chatbotWindow.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            chatbotWindow.style.left = `${initialX + dx}px`;
+            chatbotWindow.style.top = `${initialY + dy}px`;
+            chatbotWindow.style.bottom = 'auto'; // override bottom positioning
+            chatbotWindow.style.right = 'auto'; // override right positioning
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Chat UI toggling
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        // Appending Messages
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function appendUserMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: #ef4444; color: white; padding: 10px 14px; border-radius: 12px 12px 0 12px; align-self: flex-end; max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out; box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            appendUserMessage(document.querySelector(`button[onclick="handleChatOption('${option}')"]`).innerText);
+
+            setTimeout(async () => {
+                if (option === 'about') {
+                    appendBotMessage(`<b>KishanSeva</b> is a unified digital ecosystem designed to eradicate stubble burning. We combine NASA live satellite tracking, direct Govt. Machinery Subsidies, and hyper-local Labour/Tractor Marketplaces into a single platform.`);
+                } else if (option === 'stubble') {
+                    appendBotMessage(`<b>Stubble Burning</b> causes massive PM2.5 pollution. We monitor fields in real-time. A severe fire triggers SMS alerts so nodal officers and farmers can deploy happy seeders immediately to prevent SMOG formation.`);
+                } else if (option === 'machinery') {
+                    appendBotMessage(`The <b>Machinery Marketplace</b> lets you rent Happy Seeders, Super SMS, and Balers near your farm to clear residue without burning. Balers specifically help clear crop waste quickly!`);
+                } else if (option === 'labour') {
+                    appendBotMessage(`The <b>Labour Market</b> helps farmers hire workers for sowing or residue clearing. You even earn <b>+50 Eco-Credits</b> for taking eco-friendly jobs, which gives you priority for govt incentives!`);
+                } else if (option === 'biomass') {
+                    appendBotMessage(`<b>Biomass Buyers</b> like Indian Oil (IOCL) and Punjab Bio-Energy are listed directly on our platform. They will buy your straw to make Bio-Gas or Bio-pellets, turning your waste into direct cash!`);
+                } else if (option === 'subsidies') {
+                    appendBotMessage(`The <b>Subsidy Portal</b> tracks district-level funding. You can claim up to 50% Govt subsidy (or 80% for cooperatives) on Crop Residue Management (CRM) machinery.`);
+                } else if (option === 'weather') {
+                    try {
+                        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.24&longitude=75.84&current_weather=true');
+                        const data = await res.json();
+                        appendBotMessage(`Currently in Sangrur, the temperature is <b>${Math.round(data.current_weather.temperature)}°C</b> with wind speeds up to ${data.current_weather.windspeed} km/h.`);
+                    } catch (e) {
+                        appendBotMessage("Sorry, I could not fetch the live weather.");
+                    }
+                } else if (option === 'hotspots') {
+                    appendBotMessage('Checking NASA satellites for Severe fires in your jurisdiction... Found <b>42</b> highly active fire regions today. Please check the Live Map.');
+                }
+            }, 600);
+        }
+
+        // Generic user input handling
+        chatSubmit.addEventListener('click', processUserInput);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') processUserInput();
+        });
+
+        function processUserInput() {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            appendUserMessage(val);
+            chatInput.value = '';
+
+            setTimeout(() => {
+                const lower = val.toLowerCase();
+                if (lower.includes('stubble') || lower.includes('burn')) {
+                    handleChatOption('stubble');
+                } else if (lower.includes('machine') || lower.includes('tractor') || lower.includes('rent')) {
+                    handleChatOption('machinery');
+                } else if (lower.includes('job') || lower.includes('labour') || lower.includes('work') || lower.includes('credit')) {
+                    handleChatOption('labour');
+                } else if (lower.includes('sell') || lower.includes('biomass') || lower.includes('oil') || lower.includes('buy')) {
+                    handleChatOption('biomass');
+                } else if (lower.includes('subsidy') || lower.includes('fund') || lower.includes('gov')) {
+                    handleChatOption('subsidies');
+                } else if (lower.includes('weather') || lower.includes('rain') || lower.includes('temp')) {
+                    handleChatOption('weather');
+                } else {
+                    appendBotMessage("I am a smart Kishan AI. I can give you info about Stubble Burning, Machinery, Subsidies, Labour, Biomass Buyers, or Weather. What would you like to know?");
+                }
+            }, 600);
+        }
+    </script>
+
+    <!-- Google Translate Script (Multi-Regional) -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,pa,hi,mai,bn,as', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - KishanSeva</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .analytics-theme {
+            --brand-primary: #8b5cf6;
+            /* Purple */
+            --brand-secondary: #0ea5e9;
+            /* Tech Blue */
+        }
+    </style>
+</head>
+
+<body class="analytics-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="KishanSeva Logo"
+                        style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    <span class="logo-text">Kishan<span class="highlight">Seva</span></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">OFFICIAL PORTAL</div>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>Main Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-item active">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Analytics Data</span>
+                </a>
+                <a href="subsidies.html" class="nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Subsidies Portal</span>
+                </a>
+
+                <div class="nav-section">FARMER SERVICES</div>
+                <a href="farmer.html" class="nav-item">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Farmer Dashboard</span>
+                </a>
+                <a href="machinery.html" class="nav-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Machinery Hub</span>
+                </a>
+                <a href="labour.html" class="nav-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Labour Market</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="User"
+                        class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Punjab Admin</span>
+                        <span class="user-role">Nodal Officer</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search analytics reports...">
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="primary-btn" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
+                        <i class="fa-solid fa-file-pdf"></i> Generate PDF
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title"
+                            style="background: linear-gradient(to right, #0F172A, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                            Data Analytics</h1>
+                        <p class="page-subtitle">Deep intelligence and predictive modeling on stubble burning trends.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- KPI Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;"><i
+                                class="fa-solid fa-fire-extinguisher"></i></div>
+                        <div class="stat-content">
+                            <h3>Total Fires Prevented</h3>
+                            <div class="stat-value">3,102</div>
+                            <div class="stat-trend positive"><i class="fa-solid fa-arrow-up"></i> 24% Improvement</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                class="fa-solid fa-smog"></i></div>
+                        <div class="stat-content">
+                            <h3>AQI Reduction</h3>
+                            <div class="stat-value">-45 pts</div>
+                            <div class="stat-trend positive"><i class="fa-solid fa-arrow-down"></i> vs same period last
+                                year</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i
+                                class="fa-solid fa-map-location-dot"></i></div>
+                        <div class="stat-content">
+                            <h3>Most Vulnerable Dist.</h3>
+                            <div class="stat-value" style="font-size:24px; margin-top:4px;">Sangrur</div>
+                            <div class="stat-trend negative">86% Alert Probability</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;"><i
+                                class="fa-solid fa-tractor"></i></div>
+                        <div class="stat-content">
+                            <h3>Machinery Utilization</h3>
+                            <div class="stat-value">88%</div>
+                            <div class="stat-trend positive">Efficient distribution</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-layout" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Massive Graph Placeholder -->
+                    <div class="panel">
+                        <div class="panel-header" style="margin-bottom: 30px;">
+                            <h2 class="panel-title"><i class="fa-solid fa-chart-line" style="color:#8b5cf6;"></i> Burn
+                                Incidents Over Time</h2>
+                            <div class="date-picker">This Season vs Last Season</div>
+                        </div>
+                        <div
+                            style="width: 100%; height: 300px; background: url('https://adminlte.io/themes/v3/dist/img/dashboard2/chart.png') center/cover no-repeat; opacity: 0.8; filter: hue-rotate(220deg); border-radius: 8px;">
+                        </div>
+                    </div>
+
+                    <!-- AI Insights -->
+                    <div class="panel glass-panel">
+                        <h2 class="panel-title" style="margin-bottom: 24px;"><i class="fa-solid fa-brain"
+                                style="color:#8b5cf6;"></i> AI Analytics Engine</h2>
+                        <div class="list-container">
+                            <div class="list-item" style="padding: 12px;">
+                                <div class="item-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i
+                                        class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div class="item-details">
+                                    <h4 style="margin:0;">Risk Spike Prediction</h4>
+                                    <p style="margin:4px 0 0; line-height:1.4;">Harvest in Patiala ends in 3 days. AI
+                                        expects a 40% spike in burning cases if machineries aren't routed.</p>
+                                </div>
+                            </div>
+                            <div class="list-item" style="padding: 12px;">
+                                <div class="item-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                        class="fa-solid fa-check-double"></i></div>
+                                <div class="item-details">
+                                    <h4 style="margin:0;">Machinery Success</h4>
+                                    <p style="margin:4px 0 0; line-height:1.4;">The new Baler subsidies reduced burning
+                                        in Ludhiana by 62%.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Floating AI Chatbot -->
+        <button id="chatbot-fab"
+            style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: #8b5cf6; color: #fff; border: none; box-shadow: var(--shadow-lg); font-size: 24px; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: var(--transition);">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <div id="chatbot-window"
+            style="position: fixed; bottom: 100px; right: 24px; width: 320px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-lg); display: none; flex-direction: column; z-index: 1000; overflow: hidden; animation: slideIn 0.3s ease-out;">
+            <div
+                style="background: #8b5cf6; color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;"><i
+                        class="fa-solid fa-robot"></i> Data AI Expert</div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: #fff; cursor: pointer; font-size:16px;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="chatbot-messages"
+                style="padding: 16px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; background: var(--bg-primary);">
+                <div
+                    style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%;">
+                    Welcome to the Analytics Portal. Need me to summarize any data trends?
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="chip-container">
+                    <button class="chat-chip" onclick="handleChatOption('predict')"
+                        style="background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; color: var(--text-primary); transition: var(--transition);">🔮
+                        Predict Next Week</button>
+                </div>
+            </div>
+            <div
+                style="padding: 12px; background: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                <input type="text" placeholder="Ask AI..."
+                    style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); outline: none;">
+                <button
+                    style="background: #8b5cf6; color: #fff; border: none; border-radius: 8px; width: 40px; cursor: pointer;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch(`${API_URL}/api/analytics`);
+                const data = await res.json();
+
+                // Update KPI Stats
+                const stats = document.querySelectorAll('.stat-value');
+                if (stats.length >= 4) {
+                    stats[0].innerText = data.fires_prevented.toLocaleString();
+                    stats[1].innerText = `-${data.aqi_reduction} pts`;
+                    stats[2].innerText = data.most_vulnerable_district;
+                    stats[3].innerText = `${data.machinery_utilization}%`;
+                }
+
+                // Update Insights List
+                const listContainer = document.querySelector('.list-container');
+                let insightsHtml = '';
+                data.insights.forEach(insight => {
+                    insightsHtml += `
+                    <div class="list-item" style="padding: 12px; animation: slideIn 0.3s ease-out;">
+                        <div class="item-icon" style="background: #${insight.color}22; color: #${insight.color};"><i class="fa-solid ${insight.icon}"></i></div>
+                        <div class="item-details">
+                            <h4 style="margin:0;">${insight.title}</h4>
+                            <p style="margin:4px 0 0; line-height:1.4;">${insight.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                if (listContainer) listContainer.innerHTML = insightsHtml;
+
+            } catch (e) {
+                console.error("Failed to load analytics overview", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAnalytics);
+
+        // --- AI Chatbot Logic ---
+        const chatbotFab = document.getElementById('chatbot-fab');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotFab.addEventListener('click', () => {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function appendBotMessage(msg) {
+            const div = document.createElement('div');
+            div.style.cssText = 'background: var(--bg-secondary); padding: 10px 14px; border-radius: 12px 12px 12px 0; align-self: flex-start; border: 1px solid var(--border-color); max-width: 85%; margin-top: 12px; animation: slideIn 0.3s ease-out;';
+            div.innerHTML = msg;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        async function handleChatOption(option) {
+            if (option === 'predict') {
+                appendBotMessage('Analyzing historical trends and satellite harvesting data...');
+                setTimeout(() => {
+                    appendBotMessage('Based on my models, the most likely hotspots over the next 7 days will be in <b>Patiala</b> and <b>Bathinda</b>. Recommend rerouting Happy Seeders to these districts immediately.');
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>
